@@ -324,7 +324,7 @@ body:hover::-webkit-scrollbar-thumb{
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
+    width: 0;
     height: 6px;
     background-color: var(--primary);
     border-radius: var(--radius-pill);
@@ -376,13 +376,77 @@ body:hover::-webkit-scrollbar-thumb{
 
 
 
-
-
-
-
 /*
 --//--//--//--// PLAYLIST //--//--//--//--
 */
+.playlist{
+    position: fixed;
+    top: 0;
+    right: -180px;
+    width: 180px;
+    height: 100vh;
+    background-color: var(--background);
+    padding: 28px;
+    border-top-left-radius: var(--radius-16);
+    border-bottom-left-radius: var(--radius-16);
+    box-shadow: var(--shadow-2);
+    overflow-y: overlay;
+    visibility: hidden;
+    transition: var(--transition-2);
+    z-index: 4;
+}
+.playlist:hover::-webkit-scrollbar-thumb{
+    background-color: var(--surface-variant);
+}
+.playlist.active{
+    transform: translateX(-180px);
+    visibility: visible;
+}
+
+.music-list{
+    display: grid;
+    gap: 20px;
+}
+.music-item{
+    position: relative;
+    border-radius: var(--radius-12);
+    background-color: var(--surface-variant);
+    overflow: hidden;
+}
+.music-item .item-icon{
+    position: absolute;
+    inset: 0;
+    background-color: var(--eerie-black_a50);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+}
+.music-item.playing .item-icon{
+    opacity: 1;
+}
+.music-item .item-icon .material-symbols-rounded{
+    color: var(--primary);
+    font-size: 3rem;
+}
+
+.music-item:is(:hover, :focus-visible, :active, .playing){
+    outline: 1px solid var(--primary);
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--black);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-2);
+    z-index: 3;
+}
+
+
 
 /*
 --//--//--//--// MEDIA QUERIES //--//--//--//--
