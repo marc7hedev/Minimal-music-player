@@ -125,3 +125,74 @@ addEventOnElements(playlistItems, "click", function(){
     currentMusic = Number(this.dataset.playlistItem);
     changePlaylistItem();
 });
+
+
+/*
+--//--//-- PLAYER - REPRODUCTOR --//--//--
+Cambiar la información visual del reproductor en el reproductor, basado en la música que se está reproduciendo en el momento. 
+*/
+
+const playerBanner = document.querySelector("[data-player-banner]");
+const playerTitle = document.querySelector("[data-title]");
+const playerAlbum = document.querySelector("[data-album]");
+const playerYear = document.querySelector("[data-year]");
+const playerArtist = document.querySelector("[data-artist]");
+
+const audioSource = new Audio(musicData[currentMusic].musicPath);
+
+const changePlayerInfo = function () {
+    playerBanner.src = musicData[currentMusic].posterUrl;
+    playerBanner.setAttribute("alt", `${musicData[currentMusic].title} Album Poster`);
+    document.body.style.backgroundImage = `url(${musicData[currentMusic].backgroundImage})`;
+    playerTitle.textContent = musicData[currentMusic].title;
+    playerAlbum.textContent = musicData[currentMusic].album;
+    playerYear.textContent = musicData[currentMusic].year;
+    playerArtist.textContent = musicData[currentMusic].artist;
+
+    audioSource.src = musicData[currentMusic].musicPath;
+
+};
+
+addEventOnElements(playlistItems, "click", changePlayerInfo);
+
+/** Actualizar duración de la pista en el reproductor **/
+const playerDuration = document.querySelector("[data-duration]");
+const playerSeekRange = document.querySelector("[data-seek]");
+
+/** Obtener y formatear el tiempo(timecode) a minutos-segundos **/
+const getTimecode = function (duration) {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.ceil(duration - (minutes * 60));
+    const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return timecode;
+}
+
+const updateDuration = function () {
+    playerSeekRange.max = Math.ceil(audioSource.duration);
+    playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
+};
+
+audioSource.addEventListener("loadeddata", updateDuration);
+
+
+/*
+--//--//-- REPRODUCIR MUSICA --//--//--
+Reproducir y pausar la música al dar click al botón Play
+*/
+
+const playBtn = document.querySelector("[data-play-btn]");
+
+let playInterval;
+
+const playMusic = function () {
+    if (audioSource.paused){
+        audioSource.play();
+        playBtn.classList.add("active");
+        playInterval = setInterval(update);
+    } else {
+        audioSource.pause();
+        playBtn.classList.remove("active");
+    }
+}
+
+playBtn.addEventListener("click", playMusic);
