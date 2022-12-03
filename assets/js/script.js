@@ -151,6 +151,10 @@ const changePlayerInfo = function () {
 
     audioSource.src = musicData[currentMusic].musicPath;
 
+
+    audioSource.addEventListener("loadeddata", updateDuration);
+    playMusic();
+
 };
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
@@ -176,7 +180,7 @@ audioSource.addEventListener("loadeddata", updateDuration);
 
 
 /*
---//--//-- REPRODUCIR MUSICA --//--//--
+--//--//-- REPRODUCIR MÚSICA --//--//--
 Reproducir y pausar la música al dar click al botón Play
 */
 
@@ -188,11 +192,41 @@ const playMusic = function () {
     if (audioSource.paused){
         audioSource.play();
         playBtn.classList.add("active");
-        playInterval = setInterval(update);
+        playInterval = setInterval(updateRunningTime, 100);
     } else {
         audioSource.pause();
         playBtn.classList.remove("active");
+        clearInterval(playInterval);
     }
 }
 
 playBtn.addEventListener("click", playMusic);
+
+
+/** Actualizar el tiempo de reproducción **/
+const playerRunningTime = document.querySelector("[data-running-time]")
+
+const updateRunningTime = function () {
+    playerSeekRange.value = audioSource.currentTime;
+    playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+    
+    updateRangeFill();
+}
+
+
+/*
+--//--//-- RANGE FILL WIDTH - BARRA DE PROGRESO TIEMPO --//--//--
+rellena el ancho de la barra de tiempo recorrido de la pista
+*/
+
+const ranges = document.querySelectorAll("[data-range]");
+const rangeFill = document.querySelector("[data-range-fill]");
+
+const updateRangeFill = function () {
+    let element = this || ranges[0];
+
+    const rangeValue = (element.value / element.max) * 100;
+    element.nextElementSibling.style.width = `${rangeValue}%`;
+}
+
+addEventOnElements(ranges, "input", updateRangeFill);
