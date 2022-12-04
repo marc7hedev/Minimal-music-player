@@ -449,5 +449,24 @@ body:hover::-webkit-scrollbar-thumb{
 
 
 /*
---//--//--//--// MEDIA QUERIES //--//--//--//--
+--//--//--//--// MEDIA QUERIES - CONSULTA DE MEDIOS //--//--//--//--
 */
+/* Pantallas más grandes que 575px */
+@media (min-width: 575px){
+    
+    /* RESET */
+    body{
+        background-size: 100%;
+    }
+    
+    /* REPRODUCTOR */
+
+    .player{
+        justify-content: center;
+    }
+    .player .container{
+        max-width: 540px;
+    }
+
+
+}

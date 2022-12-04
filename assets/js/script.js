@@ -192,7 +192,7 @@ const playMusic = function () {
     if (audioSource.paused){
         audioSource.play();
         playBtn.classList.add("active");
-        playInterval = setInterval(updateRunningTime, 100);
+        playInterval = setInterval(updateRunningTime, 500);
     } else {
         audioSource.pause();
         playBtn.classList.remove("active");
@@ -211,6 +211,7 @@ const updateRunningTime = function () {
     playerRunningTime.textContent = getTimecode(audioSource.currentTime);
     
     updateRangeFill();
+    isMusicEnd();
 }
 
 
@@ -230,3 +231,107 @@ const updateRangeFill = function () {
 }
 
 addEventOnElements(ranges, "input", updateRangeFill);
+
+
+/*
+--//--//-- BUSCAR MÚSICA - SEEK FUNCTION --//--//--
+Hacer funcional la barra de progreso. "seek range"
+*/
+const seek = function (){
+    audioSource.currentTime = playerSeekRange.value;
+    playerRunningTime.textContent = getTimecode(playerSeekRange.value);
+}
+
+playerSeekRange.addEventListener("input", seek);
+
+
+/*
+--//--//-- FINALIZAR PISTA --//--//--
+*/
+const isMusicEnd = function (){
+    if (audioSource.ended){
+        playBtn.classList.remove("active");
+        audioSource.currentTime = 0;
+        playerSeekRange.value = audioSource.currentTime;
+        playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+        updateRangeFill();
+    }
+}
+
+
+/*
+--//--//-- BOTÓN SIGUIENTE PISTA --//--//--
+*/
+const playerSkipNextBtn = document.querySelector("[data-skip-next]");
+
+const skipNext = function (){
+    lastPlayedMusic = currentMusic;
+
+    if (isShuffled){
+        shuffleMusic();
+    }else{
+        currentMusic >= musicData.length - 1 ? currentMusic = 0 : currentMusic++;
+    }
+
+    changePlayerInfo();
+    changePlaylistItem();
+}
+
+playerSkipNextBtn.addEventListener("click", skipNext);
+
+
+/*
+--//--//-- BOTÓN ANTERIOR PISTA --//--//--
+*/
+
+const playerSkipPrevBtn = document.querySelector("[data-skip-prev]");
+
+const skipPrev = function (){
+    lastPlayedMusic = currentMusic;
+
+    if (isShuffled){
+        shuffleMusic();
+    }else{
+        currentMusic <= 0 ? currentMusic = musicData.length - 1 : currentMusic--;
+    }
+
+    changePlayerInfo();
+    changePlaylistItem();
+}
+
+playerSkipPrevBtn.addEventListener("click", skipPrev);
+
+
+/*
+--//--//-- ALEATORIO - SHUFFLE --//--//--
+Definir función para obtener un número aleatorio
+*/
+const getRandomMusic = () => Math.floor(Math.random() * musicData.length);
+const shuffleMusic = () => currentMusic = getRandomMusic();
+const playerShuffleBtn = document.querySelector("[data-shuffle]");
+let isShuffled = false;
+
+const shuffle = function (){
+    playerShuffleBtn.classList.toggle("active");
+
+    isShuffled = isShuffled ? false : true;
+}
+
+playerShuffleBtn.addEventListener("click", shuffle);
+
+/*
+--//--//-- REPETIR PISTA --//--//--
+*/
+const playerRepeatBtn = document.querySelector("[data-repeat]");
+
+const repeat = function (){
+    if (!audioSource.loop){
+        audioSource.loop = true;
+        this.classList.add("active");
+    }else{
+        audioSource.loop = false;
+        this.classList.remove("active");
+    }
+}
+
+playerRepeatBtn.addEventListener("click", repeat);
