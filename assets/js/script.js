@@ -335,3 +335,39 @@ const repeat = function (){
 }
 
 playerRepeatBtn.addEventListener("click", repeat);
+
+
+/*
+--//--//-- VOLUMEN --//--//--
+Controlar el volumen mediante la barra de volumen (range)
+*/
+const playerVolumeRange = document.querySelector("[data-volume]");
+const playerVolumeBtn = document.querySelector("[data-volume-btn]");
+
+const changeVolume = function (){
+    audioSource.volume = playerVolumeRange.value;
+    audioSource.muted = false;
+
+    if (audioSource.volume <= 0.1){
+        playerVolumeBtn.children[0].textContent = "volume_mute";
+    }else if(audioSource.volume <= 0.5){
+        playerVolumeBtn.children[0].textContent = "volume_down";
+    }else{
+        playerVolumeBtn.children[0].textContent = "volume_up";
+    } 
+}
+
+playerVolumeRange.addEventListener("input", changeVolume);
+
+
+/** MUTEAR **/
+const muteVolume = function (){
+    if (!audioSource.muted){
+        audioSource.muted = true;
+        playerVolumeBtn.children[0].textContent = "volume_off";
+    }else{
+        changeVolume
+    }
+}
+
+playerVolumeBtn.addEventListener("click", muteVolume);
