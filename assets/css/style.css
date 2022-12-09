@@ -10,6 +10,7 @@
 */
 :root{
     /*Colores*/
+    --hue-color: 160;
     --eerie-black_a95: hsla(204, 9%, 11%, 0.95);
     --eerie-black_a95: hsla(204, 9%, 11%, 0.95);
     --eerie-black_a50: hsla(204, 9%, 11%, 0.5);
@@ -17,7 +18,8 @@
     --gainsboro: hsl(225, 7%, 89%);
     --charcoal: hsl(203, 9%, 28%);
     --silver-sand: hsl(208, 12%, 78%);
-    --light-sky-blue: hsl(200, 100%, 73%);
+    /* --light-sky-blue: hsl(200, 100%, 73%); */
+    --light-sky-blue: hsl(var(--hue-color), 100%, 73%);
     --prussian-blue: hsl(196, 100%, 14%);
     --black: hsl(0, 0%, 0%);
     --black_a50: hsla(0, 0%, 0%, 0.5);
@@ -120,7 +122,7 @@ button{
 }
 
 html{
-    font-family: var(--ff-inter);
+    font-family: var(--ff-condensed);
     font-size: 10px;
     scroll-behavior: smooth;
 }
@@ -137,6 +139,7 @@ body{
     background-repeat: no-repeat;
     background-position: top;
     overflow: overlay;
+    transition: 0.6s;
 }
 
 body.modalActive{
@@ -174,6 +177,7 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     height: 1em;
     overflow: hidden;
     user-select: none;
+    /* transition: .3s; */
 }
 
 .wrapper{
@@ -182,7 +186,13 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
 }
 .title-lg{
     font-size: var(--title-lg);
-    font-weight: var(--fw-400);   
+    font-weight: var(--fw-400);
+    /* transition: .3s; */
+}
+.logo:hover{
+    color: var(--light-sky-blue);
+    transform: scale(1.1);
+    
 }
 
 .btn-icon{
@@ -192,9 +202,11 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     display: grid;
     place-items: center;
     border-radius: var(--radius-circle);
+    transition: .2s;
 }
 .btn-icon:hover{
     background-color: var(--on-surface-variant-hover);
+    
 }
 .btn-icon:is(:focus, :focus-visible){
     background-color: var(--on-surface-variant-focus);
@@ -250,6 +262,7 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
 
 .logo{
     gap: 12px;
+    transition: .2s;
 }
 
 
@@ -277,6 +290,8 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     display: grid;
     grid-template-rows: 1fr max-content;
     gap: 24px;
+    /* transition: 0.3s; */
+
 }
 
 .music-banner{
@@ -287,17 +302,22 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     align-self: center;
     overflow: hidden;
     border-radius: var(--radius-24);
+    /* transition: 0.3s; */
+    
 }
 
 .label-wrapper{
     justify-content: center;
     opacity: 0.8;
     margin-block: 8px 4px;
+    /* transition: 0.3s; */
+
 }
 .label-wrapper span:first-child::after{
     content: "|";
     display: inline-block;
     margin-inline: 4px;
+    
 }
 
 .artist{
@@ -322,6 +342,7 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     height: 6px;
     width: 100%;
     border-radius: var(--radius-pill);
+    
 }
 .range-fill{
     content: "";
@@ -333,6 +354,8 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     background-color: var(--primary);
     border-radius: var(--radius-pill);
     pointer-events: none;
+    /* transition: 0.5s; */
+
 }
 .range::-webkit-slider-thumb{
     appearance: none;
@@ -364,18 +387,26 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
 .player-control .play{
     background-color: var(--surface-variant);
     color: var(--primary);
+    transition: 0.3s;
+
 }
 .player-control .play.active{
     background-color: var(--primary);
     color: var(--on-primary);
+    transition: 0.3s;
+
 }
 .player-control .btn-icon.active .default-icon,
 .player-control .btn-icon .active-icon{
     display: none;
+    transition: 0.3s;
+
 }
 .player-control .btn-icon .default-icon,
 .player-control .btn-icon.active .active-icon{
     display: block;
+    transition: 0.3s;
+
 }
 
 
@@ -416,6 +447,8 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     border-radius: var(--radius-12);
     background-color: var(--surface-variant);
     overflow: hidden;
+    transition: .2s;
+    
 }
 .music-item .item-icon{
     position: absolute;
@@ -424,6 +457,7 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
     display: grid;
     place-items: center;
     opacity: 0;
+    
 }
 .music-item.playing .item-icon{
     opacity: 1;
