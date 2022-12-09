@@ -114,8 +114,6 @@ const musicData = [
         artist: "No Spirit",
         musicPath: "./assets/music/music-12.mp3",
     },
-    
-    
 ];
 
 
