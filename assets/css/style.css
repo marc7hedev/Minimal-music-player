@@ -206,8 +206,16 @@ https://fonts.google.com/icons?icon.query=volume&icon.style=Rounded
 }
 .btn-icon:hover{
     background-color: var(--on-surface-variant-hover);
-    
 }
+
+.btn-icon.play:hover .default-icon{
+    transform: scale(1.5);
+}
+.btn-icon.play:hover .active-icon{
+    transform: scale(1.2);
+}
+
+
 .btn-icon:is(:focus, :focus-visible){
     background-color: var(--on-surface-variant-focus);
 }
