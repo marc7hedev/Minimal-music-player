@@ -72,5 +72,3 @@ Si tienes alguna pregunta o sugerencia, no dudes en contactarme a través de [co
 ¡Gracias por visitar mi proyecto! 😊
 
 ---
-
-¿Hay algo más que te gustaría ajustar o agregar?
